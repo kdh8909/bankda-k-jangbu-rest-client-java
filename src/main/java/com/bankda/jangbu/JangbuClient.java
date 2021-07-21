@@ -2,6 +2,7 @@ package com.bankda.jangbu;
 
 import com.bankda.jangbu.exception.BankdaException;
 import com.bankda.jangbu.request.Auth;
+import com.bankda.jangbu.request.kindergarten.SlipCisSend;
 import com.bankda.jangbu.request.kindergarten.SlipUpload;
 import com.bankda.jangbu.response.AuthResponse;
 import com.bankda.jangbu.response.RegisterResponse;
@@ -66,6 +67,25 @@ public class JangbuClient {
      */
     public RegisterResponse registerSlipUpload(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipUpload slipUpload) throws BankdaException, IOException {
         Call<RegisterResponse> call = this.jangbu.registerSlipUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipUpload);
+        Response<RegisterResponse> response = call.execute();
+
+        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        return response.body();
+    }
+
+    /**
+     * 어린이집 전표 CIS 등록
+     * @param jangbuId: 장부사 ID
+     * @param serviceCode: 서비스 이름 (경기형 : GYEONGGI, 인천형: INCHEON, 대구형: DAEGU, 서울형: SEOUL)
+     * @param requestType: 요청 타입 (slip_cis_send)
+     * @param userId: 사용자 ID
+     * @param slipCisSend: 업무 데이터
+     * @return
+     * @throws BankdaException
+     * @throws IOException
+     */
+    public RegisterResponse registerSlipCisSend(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipCisSend slipCisSend) throws BankdaException, IOException {
+        Call<RegisterResponse> call = this.jangbu.registerSlipCisSend("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipCisSend);
         Response<RegisterResponse> response = call.execute();
 
         if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
