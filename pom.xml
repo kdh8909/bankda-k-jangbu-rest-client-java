@@ -53,11 +53,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>com.github.kdh8909</groupId>
-            <artifactId>bankda-k-jangbu-rest-client-java</artifactId>
-            <version>0.0.1</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
