@@ -32,6 +32,9 @@ public class SlipCisSend {
     @SerializedName("data")
     private List<SlipCisSendData> data;
 
+    public SlipCisSend() {
+    }
+
     public SlipCisSend(String version, String request_type, String uid, String service_name, String trans_dtm, String memo, String record_count, List<SlipCisSendData> data) {
         this.version = version;
         this.request_type = request_type;

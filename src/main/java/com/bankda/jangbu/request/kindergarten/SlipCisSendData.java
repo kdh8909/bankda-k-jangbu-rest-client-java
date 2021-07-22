@@ -9,6 +9,9 @@ public class SlipCisSendData {
     @SerializedName("schYearMonth")
     private String schYearMonth;
 
+    public SlipCisSendData() {
+    }
+
     public SlipCisSendData(String schYearMonth) {
         this.schYearMonth = schYearMonth;
     }

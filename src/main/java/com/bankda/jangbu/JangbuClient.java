@@ -26,6 +26,14 @@ public class JangbuClient {
     private static String accessToken = null;
     private static String refreshToken = null;
 
+    public static String getAccessToken() {
+        return accessToken;
+    }
+
+    public static String getRefreshToken() {
+        return refreshToken;
+    }
+
     public JangbuClient() {
         this.jangbu = this.create();
     }

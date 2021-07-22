@@ -18,6 +18,8 @@ public class Auth {
     @SerializedName("user_key")
     private String user_key;
 
+    public Auth() { }
+
     public Auth(String version, String usertype, String userid, String user_key) {
         this.version = version;
         this.usertype = usertype;
