@@ -2,6 +2,9 @@ package com.bankda.jangbu.response;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * 업무 등록 Response
+ */
 public class RegisterResponse {
     @SerializedName("return_code")
     private int return_code;

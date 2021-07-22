@@ -6,7 +6,7 @@
 
     <groupId>com.github.kdh8909</groupId>
     <artifactId>bankda-k-jangbu-rest-client-java</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <name>BankdaKJangbuRestClient</name>
