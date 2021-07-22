@@ -1,4 +1,4 @@
-package com.bankda.jangbu.response;
+package com.bankda.jangbu.response.auth;
 
 import com.google.gson.annotations.SerializedName;
 

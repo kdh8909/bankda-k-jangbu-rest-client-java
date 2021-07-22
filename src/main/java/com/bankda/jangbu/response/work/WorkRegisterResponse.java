@@ -1,11 +1,11 @@
-package com.bankda.jangbu.response;
+package com.bankda.jangbu.response.work;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * 업무 등록 Response
  */
-public class RegisterResponse {
+public class WorkRegisterResponse {
     @SerializedName("return_code")
     private int return_code;
 
@@ -14,12 +14,6 @@ public class RegisterResponse {
 
     @SerializedName("register_code")
     private String register_code;
-
-    public RegisterResponse(int return_code, String description, String register_code) {
-        this.return_code = return_code;
-        this.description = description;
-        this.register_code = register_code;
-    }
 
     public int getReturn_code() {
         return return_code;

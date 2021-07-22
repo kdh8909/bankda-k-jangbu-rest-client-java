@@ -28,8 +28,8 @@
 
 ### 인증
 
-- 토큰 발급 : `POST` /auth
-- 토큰 갱신 : `PUT` /auth
+- 토큰 발급 : `POST` /createToken
+- 토큰 갱신 : `PUT` /createToken
 
 ### 회원
 
@@ -76,11 +76,11 @@ public class BankdaController {
     public static String refreshToken = null;
     public static JangbuClient jangbuClient = new JangbuClient();
     
-    @PostMapping("/auth")
-    public AuthResponse createToken(@RequestBody Auth auth) {
+    @PostMapping("/createToken")
+    public AuthResponse createToken(@RequestBody Auth createToken) {
         AuthResponse authResponse = null;
         try {
-            authResponse = jangbuClient.createToken(auth);
+            authResponse = jangbuClient.createToken(createToken);
             accessToken = authResponse.getAccess_token();
             refreshToken = authResponse.getRefresh_token();
         } catch (BankdaException e) {

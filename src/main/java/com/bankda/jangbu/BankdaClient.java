@@ -1,11 +1,11 @@
 package com.bankda.jangbu;
 
 import com.bankda.jangbu.exception.BankdaException;
-import com.bankda.jangbu.request.Auth;
+import com.bankda.jangbu.request.auth.CreateToken;
 import com.bankda.jangbu.request.kindergarten.SlipCisSend;
 import com.bankda.jangbu.request.kindergarten.SlipUpload;
-import com.bankda.jangbu.response.AuthResponse;
-import com.bankda.jangbu.response.RegisterResponse;
+import com.bankda.jangbu.response.auth.AuthResponse;
+import com.bankda.jangbu.response.work.WorkRegisterResponse;
 import com.google.gson.*;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,10 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class JangbuClient {
+public class BankdaClient {
 
     public static final String API_URL = "http://localhost:3002/jangbu/api/";
-    private Jangbu jangbu = null;
+    private Bankda bankda = null;
     private static String accessToken = null;
     private static String refreshToken = null;
 
@@ -34,25 +34,25 @@ public class JangbuClient {
         return refreshToken;
     }
 
-    public JangbuClient() {
-        this.jangbu = this.create();
+    public BankdaClient() {
+        this.bankda = this.create();
     }
 
-    public JangbuClient(String accessToken, String refreshToken) {
+    public BankdaClient(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
-        this.jangbu = this.create();
+        this.bankda = this.create();
     }
 
     /**
      * 토큰 발급
-     * @param auth
+     * @param createToken
      * @return
      * @throws BankdaException
      * @throws IOException
      */
-    public AuthResponse createToken(Auth auth) throws BankdaException, IOException {
-        Call<AuthResponse> call = this.jangbu.createToken(auth);
+    public AuthResponse createToken(CreateToken createToken) throws BankdaException, IOException {
+        Call<AuthResponse> call = this.bankda.createToken(createToken);
         Response<AuthResponse> response = call.execute();
 
         if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
@@ -73,9 +73,9 @@ public class JangbuClient {
      * @throws BankdaException
      * @throws IOException
      */
-    public RegisterResponse registerSlipUpload(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipUpload slipUpload) throws BankdaException, IOException {
-        Call<RegisterResponse> call = this.jangbu.registerSlipUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipUpload);
-        Response<RegisterResponse> response = call.execute();
+    public WorkRegisterResponse registerSlipUpload(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipUpload slipUpload) throws BankdaException, IOException {
+        Call<WorkRegisterResponse> call = this.bankda.registerSlipUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipUpload);
+        Response<WorkRegisterResponse> response = call.execute();
 
         if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
         return response.body();
@@ -92,15 +92,15 @@ public class JangbuClient {
      * @throws BankdaException
      * @throws IOException
      */
-    public RegisterResponse registerSlipCisSend(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipCisSend slipCisSend) throws BankdaException, IOException {
-        Call<RegisterResponse> call = this.jangbu.registerSlipCisSend("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipCisSend);
-        Response<RegisterResponse> response = call.execute();
+    public WorkRegisterResponse registerSlipCisSend(String token, String jangbuId, String serviceCode, String requestType, String userId, SlipCisSend slipCisSend) throws BankdaException, IOException {
+        Call<WorkRegisterResponse> call = this.bankda.registerSlipCisSend("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipCisSend);
+        Response<WorkRegisterResponse> response = call.execute();
 
         if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
         return response.body();
     }
 
-    protected Jangbu create() {
+    protected Bankda create() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -118,7 +118,7 @@ public class JangbuClient {
                 .client(client)
                 .build();
 
-        return retrofit.create(Jangbu.class);
+        return retrofit.create(Bankda.class);
     }
 
     private String getExceptionMessage(Response<?> response) {

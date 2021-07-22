@@ -1,11 +1,11 @@
 package com.bankda.jangbu;
 
 import com.bankda.jangbu.exception.BankdaException;
-import com.bankda.jangbu.request.Auth;
+import com.bankda.jangbu.request.auth.CreateToken;
 import com.bankda.jangbu.request.kindergarten.SlipUpload;
 import com.bankda.jangbu.request.kindergarten.SlipUploadData;
-import com.bankda.jangbu.response.AuthResponse;
-import com.bankda.jangbu.response.RegisterResponse;
+import com.bankda.jangbu.response.auth.AuthResponse;
+import com.bankda.jangbu.response.work.WorkRegisterResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class JangbuClientTest {
-    JangbuClient client;
+public class BankdaClientTest {
+    BankdaClient client;
     String accessToken;
     String refreshToken;
     String jangbuId = null;
@@ -26,8 +26,8 @@ public class JangbuClientTest {
     @Before
     public void before() {
         try {
-            client = new JangbuClient();
-            AuthResponse authResponse = client.createToken(new Auth("2.00", "jangbu", jangbuId, password));
+            client = new BankdaClient();
+            AuthResponse authResponse = client.createToken(new CreateToken("2.00", "jangbu", jangbuId, password));
             accessToken = authResponse.getAccess_token();
             refreshToken = authResponse.getRefresh_token();
         } catch (BankdaException e) {
@@ -43,8 +43,8 @@ public class JangbuClientTest {
     @Test
     public void testCreateToken() {
         try {
-            Auth auth = new Auth("2.00", "jangbu", jangbuId, password );
-            AuthResponse authResponse = client.createToken(auth);
+            CreateToken createToken = new CreateToken("2.00", "jangbu", jangbuId, password );
+            AuthResponse authResponse = client.createToken(createToken);
             assertEquals(200, authResponse.getReturn_code());
             assertNotNull(authResponse.getAccess_token());
             assertNotNull(authResponse.getRefresh_token());
@@ -90,7 +90,7 @@ public class JangbuClientTest {
                     "1",
                     slipUploadDataArrayList
             );
-            RegisterResponse registerResponse = client.registerSlipUpload(
+            WorkRegisterResponse workRegisterResponse = client.registerSlipUpload(
                     accessToken,
                     jangbuId,
                     "GYEONGGI",
@@ -98,9 +98,9 @@ public class JangbuClientTest {
                     userId,
                     slipUpload
             );
-            assertEquals(200, registerResponse.getReturn_code());
-            assertEquals("정상", registerResponse.getDescription());
-            assertNotNull(registerResponse.getRegister_code());
+            assertEquals(200, workRegisterResponse.getReturn_code());
+            assertEquals("정상", workRegisterResponse.getDescription());
+            assertNotNull(workRegisterResponse.getRegister_code());
         } catch (BankdaException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {

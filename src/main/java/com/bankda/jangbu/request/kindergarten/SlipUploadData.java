@@ -2,6 +2,8 @@ package com.bankda.jangbu.request.kindergarten;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * 전표 등록 데이터
  */
@@ -55,7 +57,7 @@ public class SlipUploadData {
     private String SETLE_MTHD;
 
     @SerializedName("VOUCHER")
-    private SlipUploadVoucher VOUCHER;
+    private List<SlipUploadVoucher> VOUCHER;
 
     public SlipUploadData() { }
 
@@ -78,7 +80,7 @@ public class SlipUploadData {
         this.SETLE_MTHD = SETLE_MTHD;
     }
 
-    public SlipUploadData(String TRANS_DATETIME, String BILL_DATE, String TRANS_DATE, String ESTI_CODE, String ESTI_INOUT, String BILL_MEMO, String BILL_BIGO, String BILL_SUPPORT_AT, String BILL_NURI_AT, String TRANS_GB, String TRANS_MONEY, String TRANS_MONEY_IN, String TRANS_MONEY_OUT, String TRANS_REMAIN, String TRANS_MEMO, String SETLE_MTHD, SlipUploadVoucher VOUCHER) {
+    public SlipUploadData(String TRANS_DATETIME, String BILL_DATE, String TRANS_DATE, String ESTI_CODE, String ESTI_INOUT, String BILL_MEMO, String BILL_BIGO, String BILL_SUPPORT_AT, String BILL_NURI_AT, String TRANS_GB, String TRANS_MONEY, String TRANS_MONEY_IN, String TRANS_MONEY_OUT, String TRANS_REMAIN, String TRANS_MEMO, String SETLE_MTHD, List<SlipUploadVoucher> VOUCHER) {
         this.TRANS_DATETIME = TRANS_DATETIME;
         this.BILL_DATE = BILL_DATE;
         this.TRANS_DATE = TRANS_DATE;
@@ -226,11 +228,11 @@ public class SlipUploadData {
         this.SETLE_MTHD = SETLE_MTHD;
     }
 
-    public SlipUploadVoucher getVOUCHER() {
+    public List<SlipUploadVoucher> getVOUCHER() {
         return VOUCHER;
     }
 
-    public void setVOUCHER(SlipUploadVoucher VOUCHER) {
+    public void setVOUCHER(List<SlipUploadVoucher> VOUCHER) {
         this.VOUCHER = VOUCHER;
     }
 }

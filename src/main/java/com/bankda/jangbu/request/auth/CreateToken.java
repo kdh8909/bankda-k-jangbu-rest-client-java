@@ -1,11 +1,11 @@
-package com.bankda.jangbu.request;
+package com.bankda.jangbu.request.auth;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * 토큰 발급 Request
+ * 토큰 발급
  */
-public class Auth {
+public class CreateToken {
     @SerializedName("version")
     private String version;
 
@@ -18,9 +18,9 @@ public class Auth {
     @SerializedName("user_key")
     private String user_key;
 
-    public Auth() { }
+    public CreateToken() { }
 
-    public Auth(String version, String usertype, String userid, String user_key) {
+    public CreateToken(String version, String usertype, String userid, String user_key) {
         this.version = version;
         this.usertype = usertype;
         this.userid = userid;
