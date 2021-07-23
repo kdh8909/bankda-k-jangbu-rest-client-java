@@ -1,7 +1,6 @@
 package com.bankda.jangbu.request.kindergarten;
 
 import com.google.gson.annotations.SerializedName;
-import com.sun.istack.internal.Nullable;
 
 /**
  * 예산 내역 목록
