@@ -1,5 +1,6 @@
 package com.bankda.jangbu.request.kindergarten;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -40,9 +41,23 @@ public class SlipSplitUploadSlip {
     private String SETLE_MTHD;
 
     @SerializedName("VOUCHER")
+    @Expose
     private List<SlipUploadVoucher> VOUCHER;
 
     public SlipSplitUploadSlip() { }
+
+    public SlipSplitUploadSlip(String BILL_DATE, String BILL_ORDER_DATE, String ESTI_CODE, String ESTI_INOUT, String BILL_MONEY, String BILL_MEMO, String BILL_BIGO, String BILL_SUPPORT_AT, String BILL_NURI_AT, String SETLE_MTHD) {
+        this.BILL_DATE = BILL_DATE;
+        this.BILL_ORDER_DATE = BILL_ORDER_DATE;
+        this.ESTI_CODE = ESTI_CODE;
+        this.ESTI_INOUT = ESTI_INOUT;
+        this.BILL_MONEY = BILL_MONEY;
+        this.BILL_MEMO = BILL_MEMO;
+        this.BILL_BIGO = BILL_BIGO;
+        this.BILL_SUPPORT_AT = BILL_SUPPORT_AT;
+        this.BILL_NURI_AT = BILL_NURI_AT;
+        this.SETLE_MTHD = SETLE_MTHD;
+    }
 
     public SlipSplitUploadSlip(String BILL_DATE, String BILL_ORDER_DATE, String ESTI_CODE, String ESTI_INOUT, String BILL_MONEY, String BILL_MEMO, String BILL_BIGO, String BILL_SUPPORT_AT, String BILL_NURI_AT, String SETLE_MTHD, List<SlipUploadVoucher> VOUCHER) {
         this.BILL_DATE = BILL_DATE;

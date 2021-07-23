@@ -13,6 +13,9 @@ import com.bankda.jangbu.response.auth.AuthResponse;
 import com.bankda.jangbu.response.message.MessageResultResponse;
 import com.bankda.jangbu.response.message.SendMessageResponse;
 import com.bankda.jangbu.response.work.WorkRegisterResponse;
+import com.bankda.jangbu.response.work.WorkResultResponse;
+import com.bankda.jangbu.response.work.WorkStatusResponse;
+import com.bankda.jangbu.response.work.WorkVoucherResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -34,7 +37,7 @@ public interface Bankda {
     Call<SendMessageResponse> sendPushMessage(@Body SendPushMessage sendPushMessage);
 
     // 푸시 메시지 발송 결과 조회
-    @GET("message")
+    @GET("message?")
     Call<MessageResultResponse> getResultPushMessage(
             @Query("version") String version,
             @Query("result_type") String result_type,
@@ -142,5 +145,31 @@ public interface Bankda {
     );
 
     // 업무내역 - 등록 상태 조회
-//    @GET("jangbu/{jangbuId}/status/{")
+    @GET("jangbu/{jangbuId}/status/{registerCode}")
+    Call<WorkStatusResponse> getWorkStatus(
+            @Header("Authorization") String token,
+            @Path("jangbuId") String jangbuId,
+            @Path("registerCode") String registerCode,
+            @Query("version") String version
+    );
+
+    // 업무내역 - 등록 결과 조회
+    @GET("jangbu/{jangbuId}/status/{registerCode}")
+    Call<WorkResultResponse> getWorkResult(
+            @Header("Authorization") String token,
+            @Path("jangbuId") String jangbuId,
+            @Path("registerCode") String registerCode,
+            @Query("version") String version
+    );
+
+    // 업무내역 - 전표/증빙자료 조회
+    @GET("jangbu/{jangbuId}/service/{serviceCode}/user/{userId}/voucher")
+    Call<WorkVoucherResponse> getVoucher(
+            @Header("Authorization") String token,
+            @Path("jangbuId") String jangbuId,
+            @Path("serviceCode") String serviceCode,
+            @Path("userId") String userId,
+            @Query("version") String version,
+            @Query("yearmonth") String yearmonth
+    );
 }

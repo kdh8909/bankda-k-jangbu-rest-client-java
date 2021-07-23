@@ -37,11 +37,12 @@ public class Delivery {
 
     public Delivery() { }
 
-    public Delivery(String version, String request_type, String uid, String service_name, String trans_dtm, String memo, String record_count, List<DeliveryData> data) {
+    public Delivery(String version, String request_type, String uid, String service_name, String provider_type, String trans_dtm, String memo, String record_count, List<DeliveryData> data) {
         this.version = version;
         this.request_type = request_type;
         this.uid = uid;
         this.service_name = service_name;
+        this.provider_type = provider_type;
         this.trans_dtm = trans_dtm;
         this.memo = memo;
         this.record_count = record_count;

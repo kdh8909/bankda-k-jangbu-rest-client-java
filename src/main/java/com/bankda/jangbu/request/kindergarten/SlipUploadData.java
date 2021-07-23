@@ -1,5 +1,6 @@
 package com.bankda.jangbu.request.kindergarten;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class SlipUploadData {
     private String SETLE_MTHD;
 
     @SerializedName("VOUCHER")
+    @Expose
     private List<SlipUploadVoucher> VOUCHER;
 
     public SlipUploadData() { }

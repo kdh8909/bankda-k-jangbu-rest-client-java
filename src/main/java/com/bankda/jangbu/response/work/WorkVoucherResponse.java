@@ -2,15 +2,20 @@ package com.bankda.jangbu.response.work;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WorkStatusResponse {
+import java.util.List;
+
+public class WorkVoucherResponse {
     @SerializedName("return_code")
     private int return_code;
 
     @SerializedName("description")
     private String description;
 
-    @SerializedName("status")
-    private String status;
+    @SerializedName("count")
+    private int count;
+
+    @SerializedName("data")
+    private List<WorkResultData> data;
 
     public int getReturn_code() {
         return return_code;
@@ -20,7 +25,11 @@ public class WorkStatusResponse {
         return description;
     }
 
-    public String getStatus() {
-        return status;
+    public int getCount() {
+        return count;
+    }
+
+    public List<WorkResultData> getData() {
+        return data;
     }
 }

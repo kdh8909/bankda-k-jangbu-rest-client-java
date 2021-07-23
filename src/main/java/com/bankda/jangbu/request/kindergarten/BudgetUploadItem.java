@@ -1,5 +1,6 @@
 package com.bankda.jangbu.request.kindergarten;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -14,36 +15,47 @@ public class BudgetUploadItem {
     private String ESTI_OUT_MONEY;
 
     @SerializedName("ESTI_OUT_BASICNUM1")
+    @Expose
     private String ESTI_OUT_BASICNUM1;
 
     @SerializedName("ESTI_OUT_BASICTEXT1")
+    @Expose
     private String ESTI_OUT_BASICTEXT1;
 
     @SerializedName("ESTI_OUT_BASICNUM2")
+    @Expose
     private String ESTI_OUT_BASICNUM2;
 
     @SerializedName("ESTI_OUT_BASICTEXT2")
+    @Expose
     private String ESTI_OUT_BASICTEXT2;
 
     @SerializedName("ESTI_OUT_BASICNUM3")
+    @Expose
     private String ESTI_OUT_BASICNUM3;
 
     @SerializedName("ESTI_OUT_BASICTEXT4")
+    @Expose
     private String ESTI_OUT_BASICTEXT4;
 
     @SerializedName("ESTI_OUT_BASICNUM5")
+    @Expose
     private String ESTI_OUT_BASICNUM5;
 
     @SerializedName("ESTI_OUT_BASICTEXT6")
+    @Expose
     private String ESTI_OUT_BASICTEXT6;
 
     @SerializedName("ESTI_OUT_BASICNUM7")
+    @Expose
     private String ESTI_OUT_BASICNUM7;
 
     @SerializedName("ESTI_OUT_BASICTEXT8")
+    @Expose
     private String ESTI_OUT_BASICTEXT8;
 
     @SerializedName("ESTI_OUT_BASICNUM9")
+    @Expose
     private String ESTI_OUT_BASICNUM9;
 
     @SerializedName("ESTI_OUT_TOTMONEY")
