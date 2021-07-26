@@ -61,7 +61,7 @@ public class BankdaClient {
         Call<AuthResponse> call = this.bankda.createToken(createToken);
         Response<AuthResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         accessToken = response.body().getAccess_token();
         refreshToken = response.body().getRefresh_token();
 
@@ -84,7 +84,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerSlipUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipUpload);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -104,7 +104,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerSlipCisSend("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipCisSend);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -124,7 +124,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerSlipSplitUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, slipSplitUpload);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -144,7 +144,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerBudgetUpload("Bearer " + token, jangbuId, serviceCode, requestType, userId, budgetUpload);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -164,7 +164,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerBudgetCisSend("Bearer " + token, jangbuId, serviceCode, requestType, userId, budgetCisSend);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -183,7 +183,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerW4cSlipUpload("Bearer " + token, jangbuId, serviceCode, userId, w4cSlipUpload);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -202,7 +202,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerW4cSlipUploadMonthly("Bearer " + token, jangbuId, serviceCode, userId, w4cSlipUploadMonthly);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -222,7 +222,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerEdi("Bearer " + token, jangbuId, serviceCode, requestType, userId, edi);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -241,7 +241,7 @@ public class BankdaClient {
         Call<WorkRegisterResponse> call = this.bankda.registerDelivery("Bearer " + token, jangbuId, serviceCode, userId, delivery);
         Response<WorkRegisterResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -259,7 +259,7 @@ public class BankdaClient {
         Call<WorkStatusResponse> call = this.bankda.getWorkStatus("Bearer " + token, jangbuId, registerCode, version);
         Response<WorkStatusResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -277,7 +277,7 @@ public class BankdaClient {
         Call<WorkResultResponse> call = this.bankda.getWorkResult("Bearer " + token, jangbuId, registerCode, version);
         Response<WorkResultResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
@@ -297,7 +297,7 @@ public class BankdaClient {
         Call<WorkVoucherResponse> call = this.bankda.getVoucher("Bearer " + token, jangbuId, serviceCode, userId, version, yearMonth);
         Response<WorkVoucherResponse> response = call.execute();
 
-        if ( !response.isSuccessful() )	throw new BankdaException( getExceptionMessage(response), new HttpException(response) );
+        if ( !response.isSuccessful() )	throw new BankdaException( new HttpException(response) );
         return response.body();
     }
 
