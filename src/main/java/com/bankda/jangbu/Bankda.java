@@ -30,14 +30,14 @@ public interface Bankda {
 
     // 고객 회원 등록
     @POST("user")
-    Call<String> refreshToken(@Body CreateUser createUser);
+    Call<String> registerUser(@Body CreateUser createUser);
 
     // 푸시 메시지 발송 요청
     @POST("message")
     Call<SendMessageResponse> sendPushMessage(@Body SendPushMessage sendPushMessage);
 
     // 푸시 메시지 발송 결과 조회
-    @GET("message?")
+    @GET("message")
     Call<MessageResultResponse> getResultPushMessage(
             @Query("version") String version,
             @Query("result_type") String result_type,
