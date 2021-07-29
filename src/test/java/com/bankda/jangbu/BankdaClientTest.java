@@ -2,6 +2,7 @@ package com.bankda.jangbu;
 
 import com.bankda.jangbu.exception.BankdaException;
 import com.bankda.jangbu.request.auth.CreateToken;
+import com.bankda.jangbu.request.auth.RefreshToken;
 import com.bankda.jangbu.request.delivery.Delivery;
 import com.bankda.jangbu.request.delivery.DeliveryData;
 import com.bankda.jangbu.request.edi.Edi;
@@ -12,7 +13,9 @@ import com.bankda.jangbu.request.w4c.W4cSlipUploadData;
 import com.bankda.jangbu.request.w4c.W4cSlipUploadMonthly;
 import com.bankda.jangbu.response.auth.AuthResponse;
 import com.bankda.jangbu.response.work.WorkRegisterResponse;
+import com.bankda.jangbu.response.work.WorkResultResponse;
 import com.bankda.jangbu.response.work.WorkStatusResponse;
+import com.bankda.jangbu.response.work.WorkVoucherResponse;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -25,17 +28,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class BankdaClientTest {
     public static BankdaClient client = new BankdaClient();
 
-    private static String version = null;
-    private static String jangbuUserType = null;
-    private static String kinderJangbuId = null;
-    private static String w4cJangbuId = null;
-    private static String ediJangbuId = null;
-    private static String deliveryJangbuId = null;
-    private static String kinderUserId = null;
-    private static String w4cUserId = null;
-    private static String ediUserId = null;
-    private static String deliveryUserId = null;
-    private static String password = null;
+    private static String version = "3.00";
+    private static String jangbuUserType = "jangbu";
+    private static String kinderJangbuId = "wisearn";
+    private static String w4cJangbuId = "knet";
+    private static String ediJangbuId = "wisearn";
+    private static String deliveryJangbuId = "owra";
+    private static String kinderUserId = "7208001390";
+    private static String w4cUserId = "1348033785";
+    private static String ediUserId = "1678500163";
+    private static String deliveryUserId = "owrauser";
+    private static String password = "1234";
     private static String kinderRegisterCode = null;
 
     @BeforeAll
@@ -60,7 +63,25 @@ public class BankdaClientTest {
             assertNotNull(authResponse.getAccess_token());
             assertNotNull(authResponse.getRefresh_token());
         } catch (BankdaException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @DisplayName("토큰 재발급")
+    @Test
+    @Order(1)
+    public void testRefreshToken() {
+        try {
+            client.createToken(new CreateToken(version, jangbuUserType, kinderJangbuId, password));
+            RefreshToken createToken = new RefreshToken(version, BankdaClient.getRefreshToken());
+            AuthResponse authResponse = client.refreshToken(createToken);
+            assertEquals(200, authResponse.getReturn_code());
+            assertNotNull(authResponse.getAccess_token());
+            assertNotNull(authResponse.getRefresh_token());
+        } catch (BankdaException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +136,7 @@ public class BankdaClientTest {
             assertNotNull(workRegisterResponse.getRegister_code());
             kinderRegisterCode = workRegisterResponse.getRegister_code();
         } catch (BankdaException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -528,6 +549,52 @@ public class BankdaClientTest {
             assertEquals(200, workStatusResponse.getReturn_code());
             assertEquals("정상", workStatusResponse.getDescription());
             assertEquals("접수", workStatusResponse.getStatus());
+        } catch (BankdaException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @DisplayName("등록 결과 조회")
+    @Test
+    @Order(12)
+    public void testGetWorkResult() {
+        try {
+            client.createToken(new CreateToken(version, jangbuUserType, kinderJangbuId, password));
+            WorkResultResponse workResultResponse = client.getWorkResult(
+                    BankdaClient.getAccessToken(),
+                    kinderJangbuId,
+                    kinderRegisterCode,
+                    version
+            );
+            assertEquals(200, workResultResponse.getReturn_code());
+            assertEquals("정상", workResultResponse.getDescription());
+            assertEquals("접수", workResultResponse.getStatus());
+        } catch (BankdaException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @DisplayName("전표/증빙자료 조회")
+    @Test
+    @Order(13)
+    public void testGetVoucher() {
+        try {
+            client.createToken(new CreateToken(version, jangbuUserType, kinderJangbuId, password));
+            WorkVoucherResponse workVoucherResponse = client.getVoucher(
+                    BankdaClient.getAccessToken(),
+                    kinderJangbuId,
+                    "GYEONGGI",
+                    kinderUserId,
+                    version,
+                    "202106"
+            );
+            assertEquals(200, workVoucherResponse.getReturn_code());
+            assertEquals("정상", workVoucherResponse.getDescription());
+            assertNotNull(workVoucherResponse.getData());
         } catch (BankdaException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -69,41 +69,178 @@
 
 ## 예제
 
+### 인스턴스 생성
+    ```java
+    public static BankdaClient bankdaClient = new BankdaClient();
+    ```
+### 인증
+- AccessToken
+    ```java
+    BankdaClient.getAccessToken();
+    ```
+- RefreshToken
+    ```java
+    BankdaClient.getRefreshToken();
+    ```
 - 토큰 발급
-```java
-public class BankdaController {
-    public static String accessToken = null;
-    public static String refreshToken = null;
-    public static JangbuClient jangbuClient = new JangbuClient();
+    ```java
+    CreateToken createToken = new CreateToken(version, jangbuUserType, kinderJangbuId, password);
+    AuthResponse authResponse = bankdaClient.createToken(createToken);
+    ```
+- 토큰 재발급
+    ```java
     
-    @PostMapping("/createToken")
-    public AuthResponse createToken(@RequestBody Auth createToken) {
-        AuthResponse authResponse = null;
-        try {
-            authResponse = jangbuClient.createToken(createToken);
-            accessToken = authResponse.getAccess_token();
-            refreshToken = authResponse.getRefresh_token();
-        } catch (BankdaException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return authResponse;
-    }
-}
-```
-- 토큰 사용 (발급 이후)
-```java
-    public String getAccessToken() {
-        return JangbuClient.getAccessToken();
-    }
-
-    public String getRefreshToken() {
-        return JangbuClient.getRefreshToken();
-    }
-```
+    ```
+### 어린이집
 
 - 전표 등록
-```java
+    ```java
+    WorkRegisterResponse workRegisterResponse = bankdaClient.registerSlipUpload(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    "slip_delete_upload", // 요청 타입
+                    userId, // 회원 ID
+                    slipUpload // 전표 등록 데이터
+                );
+    ```
 
-```
+- 전표 CIS 등록
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerSlipCisSend(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    "slip_cis_send", // 요청 타입
+                    userId, // 회원 ID
+                    slipCisSend // 전표 CIS 등록 데이터
+                );
+    ```
+
+- 전표 분할 등록
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerSlipSplitUpload(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    "slip_split_delete_upload", // 요청 타입
+                    userId, // 회원 ID
+                    slipSplitUpload // 전표 분할 등록 데이터
+                );
+    ```
+  
+- 예산 등록
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerBudgetUpload(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    "budget_delete_upload", // 요청 타입
+                    userId, // 회원 ID
+                    budgetUpload // 예산 등록 데이터
+                );
+    ```
+
+- 예산 CIS 등록
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerBudgetCisSend(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    "budget_cis_send", // 요청 타입
+                    userId, // 회원 ID
+                    budgetCisSend // 예산 CIS 등록 데이터
+                );
+    ```
+  
+### W4C
+
+- 데이터 등록
+
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerW4cSlipUpload(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "W4C", // 서비스 코드
+                    userId, // 회원 ID
+                    w4cSlipUpload // W4C 등록 데이터
+                );
+    ```
+  
+- 월간 데이터 등록
+
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerW4cSlipUploadMonthly(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "W4C", // 서비스 코드
+                    userId, // 회원 ID
+                    w4cSlipUploadMonthly // W4C 등록 월간 데이터
+                );
+    ```
+  
+### EDI
+
+- 데이터 등록
+
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerEdi(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "EDI", // 서비스 코드
+                    "all", // 요청 타입
+                    userId, // 회원 ID
+                    edi // EDI 등록 데이터
+                );
+    ```
+
+### 음식배달
+
+- 데이터 등록
+
+    ```java
+    WorkRegisterResponse workRegisterResponse = client.registerDelivery(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "FOOD_DELIVERY", // 서비스 코드
+                    userId, // 회원 ID
+                    delivery // 음식배달 등록 데이터
+                );
+    ```
+  
+### 업무내역
+
+- 등록 상태 조회
+
+    ```java
+    WorkStatusResponse workStatusResponse = client.getWorkStatus(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    registerCode, // 등록 코드 
+                    version // API 버전
+                );
+    ```
+
+- 등록 결과 조회
+
+    ```java
+    WorkResultResponse workResultResponse = client.getWorkResult(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    registerCode, // 등록 코드
+                    version // API 버전
+                );
+    ```
+
+- 전표/증빙자료 조회
+
+    ```java
+    WorkVoucherResponse workVoucherResponse = client.getVoucher(
+                    BankdaClient.getAccessToken(), // Access Token
+                    jangbuId, // 장부사 ID
+                    "GYEONGGI", // 서비스 코드
+                    userId, // 회원 ID
+                    version, // API 버전
+                    "202106" // 등록연월
+                );
+    ```
